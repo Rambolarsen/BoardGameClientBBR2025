@@ -15,5 +15,7 @@ namespace BoardGameClientBBR2025.GameBoard
 
 		[JsonPropertyName("firstCard")]
 		public bool FirstCard { get; set; }
+
+		public int CoinValue(int numberOfCards);
 	}
 }
