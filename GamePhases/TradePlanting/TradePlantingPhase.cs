@@ -11,14 +11,12 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
     {
         var player = gameState.Players.GetActivePlayer();
 
-        var cardsToPlant = new List<object>();
+        var cardsToPlant = new List<Card>();
         cardsToPlant.AddRange(player.DrawnCards);
         cardsToPlant.AddRange(player.TradedCards);
 
-        foreach (object fakeCard in cardsToPlant)
+        foreach (var card in cardsToPlant)
         {
-            var card = ToCard(fakeCard);
-
             var validField = GetValidField(card, gameState);
 
             await validField.PlantBean(card, gameState.Name, playerId, playingClient);
@@ -39,10 +37,5 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
         var largestField = fields.MaxBy(f => f.Card.Count);
 
         return largestField;
-    }
-
-    private static Card ToCard(object card)
-    {
-        throw new NotImplementedException();
     }
 }
