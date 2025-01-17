@@ -1,24 +1,22 @@
-using BoardGameClientBBR2025.GameBoard;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace BoardGameClientBBR2025.API
 {
     public class PlayingClient
     {
         private readonly HttpClient httpClient;
-        private readonly string baseUrl = "https://localhost:7046/api/playing";
-
 
         public PlayingClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
-        public async Task<string> Plant(string gameName, string playerId, string fieldId)
+        public async Task<string?> Plant(string gameName, string playerId, string fieldId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/plant?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/plant?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -29,12 +27,12 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> EndPlanting(string gameName, string playerId)
+        public async Task<string?> EndPlanting(string gameName, string playerId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/end-planting?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/end-planting?gameName={gameName}?playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -45,12 +43,12 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> EndTrading(string gameName, string playerId)
+        public async Task<string?> EndTrading(string gameName, string playerId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/end-trading?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/end-trading?gameName={gameName}?playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -61,12 +59,12 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> TradePlant(string gameName, string playerId, string cardId, string fieldId)
+        public async Task<string?> TradePlant(string gameName, string playerId, string cardId, string fieldId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/trade-plant?gameName={gameName}?playerId={playerId}?cardId={cardId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/trade-plant?gameName={gameName}?playerId={playerId}?cardId={cardId}?fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -77,12 +75,12 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> HarvestField(string gameName, string playerId, string fieldId)
+        public async Task<string?> HarvestField(string gameName, string playerId, string fieldId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/harvest-field?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/harvest-field?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -98,7 +96,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"{baseUrl}/request-trade?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.GameUrl}/request-trade?gameName={gameName}?playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -114,7 +112,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"{baseUrl}/accept-trade?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/accept-trade?gameName={gameName}?playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -128,13 +126,19 @@ namespace BoardGameClientBBR2025.API
     }
     public class RequestTrade
     {
-        public string[] OfferedCards { get; set; }
-        public string[] CardTypesWanted { get; set; }
+        [JsonPropertyName("offeredCards")]
+        public string[]? OfferedCards { get; set; }
+
+        [JsonPropertyName("cardTypesWanted")]
+        public string[]? CardTypesWanted { get; set; }
     }
 
     public class AcceptTrade
     {
-        public string negotiationId { get; set; }
-        public string[] payment { get; set; }
+        [JsonPropertyName("negotiationId")]
+        public string? NegotiationId { get; set; }
+
+        [JsonPropertyName("payment")]
+        public string[]? Payment { get; set; }
     }
 }

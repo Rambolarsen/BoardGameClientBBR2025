@@ -6,5 +6,7 @@
 
         public const string GameUrl = $"{BaseUrl}/game";
 
+        public const string PlayingUrl = $"{BaseUrl}/playing";
+
     }
 }
