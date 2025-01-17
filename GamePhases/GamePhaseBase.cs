@@ -1,4 +1,5 @@
-﻿using BoardGameClientBBR2025.GameBoard;
+﻿using BoardGameClientBBR2025.API;
+using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases
 {
@@ -8,6 +9,6 @@ namespace BoardGameClientBBR2025.GamePhases
 
         public string PhaseName => GamePhase.GetStateName();
 
-        public abstract Task DoPhase(GameState gameState);
+        public abstract Task DoPhase(GameState gameState, PlayingClient playingClient);
     }
 }

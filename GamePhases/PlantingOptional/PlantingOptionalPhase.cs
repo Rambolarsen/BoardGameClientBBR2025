@@ -9,7 +9,7 @@ public class PlantingOptionalPhase : GamePhaseBase, IGamePhase
 
     public override GamePhaseEnum GamePhase => GamePhaseEnum.PlantingOptional;
 
-    public override async Task DoPhase(GameState gameState)
+    public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
     {
         await _playingClient.EndPlanting(gameState.Name, gameState.CurrentPlayer);
     }

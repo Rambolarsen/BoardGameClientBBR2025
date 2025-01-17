@@ -1,4 +1,5 @@
-﻿using BoardGameClientBBR2025.GameBoard;
+﻿using BoardGameClientBBR2025.API;
+using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025
 {
@@ -6,6 +7,6 @@ namespace BoardGameClientBBR2025
     {
         GamePhaseEnum GamePhase { get; }
         string PhaseName { get; }
-        Task DoPhase(GameState gameState);
+        Task DoPhase(GameState gameState, PlayingClient playingClient);
     }
 }

@@ -1,4 +1,5 @@
-﻿using BoardGameClientBBR2025.GameBoard;
+﻿using BoardGameClientBBR2025.API;
+using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.Planting
 {
@@ -6,7 +7,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
     {
         public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
 
-        public override async Task DoPhase(GameState gameState)
+        public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
         {
             PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields);
         }
