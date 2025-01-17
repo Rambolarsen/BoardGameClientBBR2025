@@ -7,9 +7,9 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
-    public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
+    public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
     {
-        var player = gameState.Players.First(p => p.Name == gameState.CurrentPlayer);
+        var player = gameState.Players.GetActivePlayer();
 
         var cardsToPlant = new List<object>();
         cardsToPlant.AddRange(player.DrawnCards);
@@ -21,7 +21,7 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
 
             var validField = GetValidField(card, gameState);
 
-            validField.PlantBean(card);
+            await validField.PlantBean(card, gameState.Name, playerId, playingClient);
         }
     }
 
