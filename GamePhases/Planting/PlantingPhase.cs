@@ -30,7 +30,23 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 
 		private void PlantCard(Card card, List<Field> fields)
 		{
+			var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
 			
+			if (fieldContainingSameCardType != null)
+			{
+				fieldContainingSameCardType.PlantBean(card);
+				return;
+			}
+
+			var emptyField = fields.FirstOrDefault(x => x.IsEmpty());
+
+			if (emptyField != null)
+			{
+				emptyField.PlantBean(card);
+				return;
+			}
+
+			fields.First().PlantBean(card);
 		}
 	}
 }
