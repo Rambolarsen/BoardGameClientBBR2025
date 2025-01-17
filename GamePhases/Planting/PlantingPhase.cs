@@ -8,7 +8,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 		
 		public override void DoPhase(GameState gameState)
 		{
-			PlantCards(gameState.YourHand, gameState)
+			//PlantCards(gameState.YourHand, gameState);
 		}
 	}
 }
