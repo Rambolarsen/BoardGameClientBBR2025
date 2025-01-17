@@ -9,7 +9,7 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 
     public override GamePhaseEnum GamePhase => GamePhaseEnum.Trading;
 
-    public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
+    public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
     {
         await _playingClient.EndTrading(gameState.Name, gameState.CurrentPlayer);
     }

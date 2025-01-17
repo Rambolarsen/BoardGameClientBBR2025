@@ -7,12 +7,12 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
     {
         public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
 
-        public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
+        public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
         {
-            PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields);
+            await PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields, gameState.Name, Guid.Empty, playingClient);
         }
 
-		private void PlantCards(List<Card> cards, List<Field>? fields)
+		private async Task PlantCards(List<Card> cards, List<Field>? fields, string gameName, Guid playerId, PlayingClient playingClient)
 		{
 			if (fields == null)
 			{
@@ -24,18 +24,16 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 				return;
 			}
 
-			PlantCard(cards.First(x => x.FirstCard), fields);
-
-			//End planting phase to server
+			await PlantCard(cards.First(x => x.FirstCard), fields, gameName, playerId, playingClient);
 		}
 
-		private void PlantCard(Card card, List<Field> fields)
+		private async Task PlantCard(Card card, List<Field> fields, string gameName, Guid playerId, PlayingClient playingClient)
 		{
 			var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
 			
 			if (fieldContainingSameCardType != null)
 			{
-				fieldContainingSameCardType.PlantBean(card);
+				await fieldContainingSameCardType.PlantBean(card, gameName, playerId, playingClient);
 				return;
 			}
 
@@ -43,11 +41,11 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 
 			if (emptyField != null)
 			{
-				emptyField.PlantBean(card);
+				await emptyField.PlantBean(card, gameName, playerId, playingClient);
 				return;
 			}
 
-			fields.First().PlantBean(card);
+			await fields.First().PlantBean(card, gameName, playerId, playingClient);
 		}
 	}
 }

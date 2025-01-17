@@ -9,6 +9,6 @@ namespace BoardGameClientBBR2025.GamePhases
 
         public string PhaseName => GamePhase.GetStateName();
 
-        public abstract Task DoPhase(GameState gameState, PlayingClient playingClient);
+        public abstract Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient);
     }
 }
