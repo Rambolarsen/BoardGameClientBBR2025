@@ -8,7 +8,7 @@ namespace BoardGameClientBBR2025.GameBoard
 		public Guid Key { get; set; }
 
 		[JsonPropertyName("card")]
-		public List<ICard> Card { get; set; }
+		public List<Card> Card { get; set; }
 
 		public int CoinValue()
 		{
@@ -18,6 +18,19 @@ namespace BoardGameClientBBR2025.GameBoard
 			}
 
 			return Card.First().CoinValue(Card.Count);
+		}
+
+		public void PlantBean(Card card)
+		{
+			if (Card.Any())
+			{
+				if (Card.First().Type != card.Type)
+				{
+					//Sell field to server
+				}
+			}
+
+			//Send plant bean to server
 		}
 	}
 }

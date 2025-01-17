@@ -12,36 +12,26 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 			PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields);
 		}
 
-		private void PlantCards(List<ICard> cards, List<Field>? fields)
+		private void PlantCards(List<Card> cards, List<Field>? fields)
 		{
-			//if (cards == null || fields == null)
-			//{
-			//	return;
-			//}
+			if (fields == null)
+			{
+				return;
+			}
 
-			//if (cards.Count <= 0)
-			//{
-			//	return;
-			//}
+			if (!cards.Any())
+			{
+				return;
+			}
 
-			//PlantCard(cards.First(), fields);
+			PlantCard(cards.First(x => x.FirstCard), fields);
 
-			//foreach (var field in fields)
-			//{
-			//	if (fields.Any(f => f.Card.Any(c => c.Type == ))
-			//}
+			//End planting phase to server
 		}
 
-		private void PlantCard(ICard card, List<Field> fields)
+		private void PlantCard(Card card, List<Field> fields)
 		{
-			//foreach (var field in fields)
-			//{
-			//	if (field.Card.Any(x => x.Type == card.Type))
-			//	{
-			//		//Add card to field;
-			//		break;
-			//	}
-			//}
+			
 		}
 	}
 }

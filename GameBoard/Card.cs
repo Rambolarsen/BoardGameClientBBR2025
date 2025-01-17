@@ -1,14 +1,24 @@
-﻿namespace BoardGameClientBBR2025.GameBoard
+﻿using System.Text.Json.Serialization;
+
+namespace BoardGameClientBBR2025.GameBoard
 {
-	public class Card : ICard
+	public class Card
 	{
+		[JsonPropertyName("id")]
 		public Guid Id { get; set; }
+
+		[JsonPropertyName("type")]
 		public string Type { get; set; } = string.Empty;
+
+		[JsonPropertyName("exchangeMap")]
 		public List<ExchangeMap> ExchangeMap { get; set; } = [];
+
+		[JsonPropertyName("firstCard")]
 		public bool FirstCard { get; set; }
+
 		public BeanType BeanType => Type.ToBeanType();
 
-		protected Card(ICard copy)
+		protected Card(Card copy)
 		{
 			Id = copy.Id;
 			Type = copy.Type;
