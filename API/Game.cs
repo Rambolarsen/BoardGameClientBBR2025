@@ -1,4 +1,5 @@
 using BoardGameClientBBR2025.GameBoard;
+using System.Net;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
@@ -44,17 +45,19 @@ namespace BoardGameClientBBR2025.API
 
         }
 
-        public async Task<Guid> JoinGame(string gameName, string name)
+        public async Task<Guid> JoinGame(string gameName, Guid playerKey, string name)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/join?gameName={gameName}&name={name}"),
+                RequestUri = new Uri($"{baseUrl}/join?gameName={gameName}&playerKey={playerKey}&name={name}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
             {
-                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                    return playerKey;
+
                 var body = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<Guid>(body);
             }

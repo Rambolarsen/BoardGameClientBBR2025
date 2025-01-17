@@ -5,9 +5,13 @@ var game = new Game(client);
 
 
 var gameState = await game.GetGame("GAME1"); //DUMMY SHIT IS FUN!
-
-var id = await game.JoinGame("GAME1", "mjøndale");
+var playerKey = Guid.NewGuid();
+var id = await game.JoinGame("GAME1", playerKey, "mjøndalen");
 Console.Write(gameState);
+
+var scoreClient = new ScoreClient(client);
+var score = await scoreClient.GetScore();
+Console.WriteLine("Score:" + score);
 //var state = await game.GetGame();
 //var request = new HttpRequestMessage
 //{

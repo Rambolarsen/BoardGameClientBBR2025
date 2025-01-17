@@ -1,19 +1,20 @@
 using BoardGameClientBBR2025.GameBoard;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
-    public class Score
+    public class ScoreClient
     {
         private readonly HttpClient httpClient;
-        private readonly string baseUrl = "https://localhost:5186/api/score";
+        private readonly string baseUrl = "https://localhost:7046/api/score";
 
 
-        public GetScore(HttpClient httpClient)
+        public ScoreClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
-        public async Task<int> GetScore()
+        public async Task<IDictionary<string, int>?> GetScore()
         {
             var request = new HttpRequestMessage
             {
@@ -25,7 +26,7 @@ namespace BoardGameClientBBR2025.API
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<int>(body);
+                return JsonSerializer.Deserialize<IDictionary<string, int>>(body);
             }
         }
     }
