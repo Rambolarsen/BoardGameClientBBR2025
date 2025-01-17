@@ -6,7 +6,6 @@ namespace BoardGameClientBBR2025.API
     public class ScoreClient
     {
         private readonly HttpClient httpClient;
-        private readonly string baseUrl = "https://localhost:7046/api/score";
 
 
         public ScoreClient(HttpClient httpClient)
@@ -19,7 +18,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/get"),
+                RequestUri = new Uri($"{Constants.ScoreUrl}/get"),
             };
 
             using (var response = await httpClient.SendAsync(request))

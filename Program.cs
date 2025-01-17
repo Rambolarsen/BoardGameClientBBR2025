@@ -2,16 +2,21 @@
 
 var client = new HttpClient();
 var game = new Game(client);
+//string[] gameNames = ["GAME1", "GAME2", "GAME3", "GAME4"];
+//foreach (var game in gameNames)
+//{
+//    var gameState = await game.GetGame("GAME3"); //DUMMY SHIT IS FUN!
 
-var gameState = await game.GetGame("GAME1"); //DUMMY SHIT IS FUN!
+//}
+var gameState = await game.GetGame("GAME3"); //DUMMY SHIT IS FUN!
 if(gameState.CurrentPhase == "")
 {
 
 }
 var playerKey = Guid.NewGuid();
 var playerKey2 = Guid.NewGuid();
-var idPlayer1 = await game.JoinGame("GAME1", playerKey, "mjøndalen");
-var idPlayer2 = await game.JoinGame("GAME1", playerKey2, "mjøndalen2");
+await game.JoinGame("GAME3", playerKey, "mjøndalen");
+await game.JoinGame("GAME2", playerKey2, "mjøndalen2");
 Console.Write(gameState);
 
 await game.Start("GAME1");
