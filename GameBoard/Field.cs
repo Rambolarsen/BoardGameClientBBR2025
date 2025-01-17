@@ -32,5 +32,15 @@ namespace BoardGameClientBBR2025.GameBoard
 
 			//Send plant bean to server
 		}
+
+		public bool ContainsSameTypeOfCard(Card card)
+		{
+			if (!Card.Any())
+			{
+				return false;
+			}
+
+			return Card.First().Type == card.Type;
+		}
 	}
 }
