@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 public class BohnanzaDeck
 {
     // Enum to define the different types of beans
