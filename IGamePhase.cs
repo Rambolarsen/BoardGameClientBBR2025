@@ -4,5 +4,6 @@
 	{
 		GamePhaseEnum GamePhase { get; set; }
 		string PhaseName { get; set; }
+		void DoPhase(GameState gameState);
 	}
 }
