@@ -1,31 +1,43 @@
 ﻿using BoardGameClientBBR2025.API;
+using BoardGameClientBBR2025.GameBoard;
 
 var client = new HttpClient();
-var game = new Game(client);
-//string[] gameNames = ["GAME1", "GAME2", "GAME3", "GAME4"];
-//foreach (var game in gameNames)
-//{
-//    var gameState = await game.GetGame("GAME3"); //DUMMY SHIT IS FUN!
+var gameClient = new Game(client);
+const string player1 = "Mjøndalen";
+const string player2 = "Mjøndalen2";
 
-//}
-var gameState = await game.GetGame("GAME3"); //DUMMY SHIT IS FUN!
-if(gameState.CurrentPhase == "")
+var games = await gameClient.GetAllGames();
+if(games == null)
 {
-
+    Console.WriteLine("No games found");
+    return;
 }
-var playerKey = Guid.NewGuid();
-var playerKey2 = Guid.NewGuid();
-await game.JoinGame("GAME3", playerKey, "mjøndalen");
-await game.JoinGame("GAME2", playerKey2, "mjøndalen2");
-Console.Write(gameState);
 
-await game.Start("GAME1");
-var scoreClient = new ScoreClient(client);
-var score = await scoreClient.GetScore();
-Console.WriteLine("Score:" + score);
+foreach (var game in games)
+{
+    var gameName = game.Name;
+    if(game.CurrentState == "Registering")
+    {
+        var playerKey = Guid.NewGuid();
+        var playerKey2 = Guid.NewGuid();
+        await gameClient.JoinGame(game.Name, playerKey, player1);
+        await gameClient.JoinGame(game.Name, playerKey2, player2);
 
-var playingClient = new PlayingClient(client);
-var plant = await playingClient.Plant("GAME1", playerKey.ToString(), gameState.Players[0].Fields[0].Key.ToString());
+
+        //await gameClient.Start(game.Name);
+
+        //var updatedGame =  await gameClient.GetGame(game.Name);
+        //var scoreClient = new ScoreClient(client);
+        //var score = await scoreClient.GetScore();
+        //Console.WriteLine("Score:" + score);
+
+        //var playingClient = new PlayingClient(client);
+        //var plant = await playingClient.Plant(updatedGame.Name, playerKey.ToString(), updatedGame.Players[0].Fields[0].Key.ToString());
+
+    }
+    Console.Write(game);
+}
+
 //var state = await game.GetGame();
 //var request = new HttpRequestMessage
 //{
