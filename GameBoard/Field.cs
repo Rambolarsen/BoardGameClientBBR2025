@@ -8,6 +8,6 @@ namespace BoardGameClientBBR2025.GameBoard
 		public Guid Key { get; set; }
 
 		[JsonPropertyName("card")]
-		public List<Card> Card { get; set; }
+		public List<ICard> Card { get; set; }
 	}
 }
