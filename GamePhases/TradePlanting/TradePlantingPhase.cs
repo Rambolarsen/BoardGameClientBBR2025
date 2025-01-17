@@ -15,15 +15,33 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
         cardsToPlant.AddRange(player.DrawnCards);
         cardsToPlant.AddRange(player.TradedCards);
 
-        var firstFieldId = player.Fields.First().Key.ToString();
-
-        foreach (object card in cardsToPlant)
+        foreach (object fakeCard in cardsToPlant)
         {
-            playingClient.TradePlant(gameState.Name, gameState.CurrentPlayer, GetCardId(card), firstFieldId);
+            var card = ToCard(fakeCard);
+
+            var validField = GetValidField(card, gameState);
+
+            validField.PlantBean(card);
         }
     }
 
-    private string GetCardId(object card)
+    private static Field GetValidField(Card card, GameState gameState)
+    {
+        var fields = gameState.Players.First(p => p.Name == gameState.CurrentPlayer).Fields;
+
+        var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
+
+        if (fieldContainingSameCardType != null)
+        {
+            return fieldContainingSameCardType;
+        }
+
+        var largestField = fields.MaxBy(f => f.Card.Count);
+
+        return largestField;
+    }
+
+    private static Card ToCard(object card)
     {
         throw new NotImplementedException();
     }
