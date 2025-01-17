@@ -1,47 +1,53 @@
-﻿using System.Security.Cryptography;
+﻿using BoardGameClientBBR2025.API;
 using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.Planting
 {
-	public class PlantingPhase : GamePhaseBase, IGamePhase
-	{
-		public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
-		
-		public override void DoPhase(GameState gameState)
+    public class PlantingPhase : GamePhaseBase, IGamePhase
+    {
+        public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
+
+        public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
+        {
+            PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields);
+        }
+
+		private void PlantCards(List<Card> cards, List<Field>? fields)
 		{
-			PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields);
+			if (fields == null)
+			{
+				return;
+			}
+
+			if (!cards.Any())
+			{
+				return;
+			}
+
+			PlantCard(cards.First(x => x.FirstCard), fields);
+
+			//End planting phase to server
 		}
 
-		private void PlantCards(List<ICard> cards, List<Field>? fields)
+		private void PlantCard(Card card, List<Field> fields)
 		{
-			//if (cards == null || fields == null)
-			//{
-			//	return;
-			//}
+			var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
+			
+			if (fieldContainingSameCardType != null)
+			{
+				fieldContainingSameCardType.PlantBean(card);
+				return;
+			}
 
-			//if (cards.Count <= 0)
-			//{
-			//	return;
-			//}
+			var emptyField = fields.FirstOrDefault(x => x.IsEmpty());
 
-			//PlantCard(cards.First(), fields);
+			if (emptyField != null)
+			{
+				emptyField.PlantBean(card);
+				return;
+			}
 
-			//foreach (var field in fields)
-			//{
-			//	if (fields.Any(f => f.Card.Any(c => c.Type == ))
-			//}
-		}
-
-		private void PlantCard(ICard card, List<Field> fields)
-		{
-			//foreach (var field in fields)
-			//{
-			//	if (field.Card.Any(x => x.Type == card.Type))
-			//	{
-			//		//Add card to field;
-			//		break;
-			//	}
-			//}
+			fields.First().PlantBean(card);
 		}
 	}
 }

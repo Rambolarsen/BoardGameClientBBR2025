@@ -2,7 +2,7 @@
 {
 	public static class FieldExtensions
 	{
-		public static Field? GetFieldContainingCardType(this List<Field> fields, ICard card)
+		public static Field? GetFieldContainingCardType(this List<Field> fields, Card card)
 		{
 			//if (fields == null)
 			//{

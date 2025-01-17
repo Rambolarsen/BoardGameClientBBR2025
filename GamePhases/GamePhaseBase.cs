@@ -1,13 +1,14 @@
-﻿using BoardGameClientBBR2025.GameBoard;
+﻿using BoardGameClientBBR2025.API;
+using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases
 {
-	public abstract class GamePhaseBase : IGamePhase
-	{
-		public abstract GamePhaseEnum GamePhase { get; }
+    public abstract class GamePhaseBase : IGamePhase
+    {
+        public abstract GamePhaseEnum GamePhase { get; }
 
-		public string PhaseName => GamePhase.GetStateName();
+        public string PhaseName => GamePhase.GetStateName();
 
-		public abstract void DoPhase(GameState gameState);
-	}
+        public abstract Task DoPhase(GameState gameState, PlayingClient playingClient);
+    }
 }
