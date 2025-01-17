@@ -1,3 +1,4 @@
+using BoardGameClientBBR2025.API;
 using BoardGameClientBBR2025.GameBoard;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
@@ -93,7 +94,7 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-         public async Task<string> HarvestField(string gameName, string playerId, string fieldId)
+        public async Task<string> HarvestField(string gameName, string playerId, string fieldId)
         {
             var request = new HttpRequestMessage
             {
@@ -109,7 +110,7 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-         public async Task<string> RequestTrade(string gameName, string playerId, string cardId, string fieldId)
+        public async Task<string> RequestTrade(string gameName, string playerId)
         {
             var request = new HttpRequestMessage
             {
@@ -121,10 +122,38 @@ namespace BoardGameClientBBR2025.API
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<string>(body);
+                return JsonSerializer.Deserialize<RequestTrade>(body);
             }
         }
 
+        public async Task<string> AcceptTrade(string gameName, string playerId)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{baseUrl}/accept-trade"),
+            };
+
+            using (var response = await httpClient.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<AcceptTrade>(body);
+            }
+        }
         
     }
+    public class RequestTrade
+    {
+        public string[] OfferedCards { get; set; }
+        public string[] CardTypesWanted { get; set; }
+    }
+
+    public class AcceptTrade
+    {
+        public string negotiationId { get; set; }
+        public string[] payment { get; set; }
+    }
 }
+
+Trade.OfferedCards
