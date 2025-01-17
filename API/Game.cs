@@ -44,7 +44,7 @@ namespace BoardGameClientBBR2025.API
 
         }
 
-        public async Task<Guid> JoinGame(string gameName, Guid playerKey, string name)
+        public async Task<bool> JoinGame(string gameName, Guid playerKey, string name)
         {
             var request = new HttpRequestMessage
             {
@@ -54,11 +54,7 @@ namespace BoardGameClientBBR2025.API
 
             using (var response = await httpClient.SendAsync(request))
             {
-                if (response.StatusCode == HttpStatusCode.BadRequest)
-                    return playerKey;
-
-                var body = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<Guid>(body);
+                return response.IsSuccessStatusCode;
             }
         }
 
