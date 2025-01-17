@@ -54,7 +54,7 @@ namespace BoardGameClientBBR2025.GameBoard
 			return !Card.Any();
 		}
 
-		public bool IsMaxedOut()
+		public bool IsMaxCropSize()
 		{
 			if (IsEmpty())
 			{

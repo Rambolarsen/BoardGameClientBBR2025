@@ -39,7 +39,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 
 		private async Task SellFieldsThatAreMaxedOut(List<Field> fields, string gameName, Guid playerId, PlayingClient playingClient)
 		{
-			foreach (var field in fields.Where(x => x.IsMaxedOut()))
+			foreach (var field in fields.Where(x => x.IsMaxCropSize()))
 			{
 				await field.SellBeans(gameName, playerId, playingClient);
 			}
