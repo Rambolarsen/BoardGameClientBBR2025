@@ -1,4 +1,6 @@
-﻿namespace BoardGameClientBBR2025
+﻿using BoardGameClientBBR2025.GameBoard;
+
+namespace BoardGameClientBBR2025
 {
 	public interface IGamePhase
 	{

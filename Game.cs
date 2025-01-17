@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGameClientBBR2025.GameBoard;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BoardGameClientBBR2025
 {
-    public class Game
+	public class Game
     {
         private readonly HttpClient httpClient;
         private readonly string baseUrl = "https://localhost:7046/api/game";
