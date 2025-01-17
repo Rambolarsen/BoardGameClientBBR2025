@@ -18,7 +18,7 @@ namespace BoardGameClientBBR2025.GameBoard
 				return 0;
 			}
 
-			return Card.First().CoinValue(Card.Count);
+			return Card.CoinValue();
 		}
 
 		public async Task PlantBean(Card card, string gameName, Guid playerId, PlayingClient playingClient)
@@ -52,6 +52,16 @@ namespace BoardGameClientBBR2025.GameBoard
 		public bool IsEmpty()
 		{
 			return !Card.Any();
+		}
+
+		public bool IsMaxedOut()
+		{
+			if (IsEmpty())
+			{
+				return false;
+			}
+
+			return Card.IsMaxCropSize();
 		}
 	}
 }

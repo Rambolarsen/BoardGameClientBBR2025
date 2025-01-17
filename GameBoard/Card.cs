@@ -18,25 +18,14 @@ namespace BoardGameClientBBR2025.GameBoard
 
 		public BeanType BeanType => Type.ToBeanType();
 
+		protected Card() { }
+
 		protected Card(Card copy)
 		{
 			Id = copy.Id;
 			Type = copy.Type;
 			ExchangeMap = copy.ExchangeMap;
 			FirstCard = copy.FirstCard;
-		}
-		
-		public int CoinValue(int numberOfCards)
-		{
-			foreach (var oneExchangeValue in ExchangeMap.OrderBy(x => x.CropSize))
-			{
-				if (numberOfCards >= oneExchangeValue.CropSize)
-				{
-					return oneExchangeValue.Value;
-				}
-			}
-
-			return 0;
 		}
 	}
 }
