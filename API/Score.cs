@@ -5,7 +5,7 @@ namespace BoardGameClientBBR2025.API
     public class Score
     {
         private readonly HttpClient httpClient;
-        private readonly string baseUrl = "https://localhost:5186/api/score";
+        private readonly string baseUrl = "https://localhost:7046/api/score";
 
 
         public Score(HttpClient httpClient)
