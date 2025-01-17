@@ -2,7 +2,7 @@
 {
 	public static class GamePhaseEnumExtensions
 	{
-		public static string GetStateString(this GamePhaseEnum gamePhase)
+		public static string GetStateName(this GamePhaseEnum gamePhase)
 		{
 			switch (gamePhase)
 			{
@@ -18,6 +18,25 @@
 					return "TradePlanting";
 				default:
 					return string.Empty;
+			}
+		}
+
+		public static GamePhaseEnum ToGamePhase(this string gamePhaseString)
+		{
+			switch (gamePhaseString)
+			{
+				case "Registering":
+					return GamePhaseEnum.Registering;
+				case "Planting":
+					return GamePhaseEnum.Planting;
+				case "PlantingOptional":
+					return GamePhaseEnum.PlantingOptional;
+				case "Trading":
+					return GamePhaseEnum.Trading;
+				case "TradePlanting":
+					return GamePhaseEnum.TradePlanting;
+				default:
+					throw new Exception($"Could not find a game pahse for {gamePhaseString}");
 			}
 		}
 	}
