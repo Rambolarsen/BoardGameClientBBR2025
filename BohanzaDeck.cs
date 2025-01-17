@@ -6,13 +6,14 @@ public class BohnanzaDeck
     // Enum to define the different types of beans
     public enum BeanType
     {
+        GardenBean,
+        BlackEyedBean,
+        StinkBean,
         BlueBean,
         GreenBean,
         RedBean,
-        YellowBean,
         ChiliBean,
         SoyBean,
-        CoffeeBean
     }
 
     // Dictionary to hold the quantity of each type of bean
@@ -23,13 +24,14 @@ public class BohnanzaDeck
     {
         deck = new Dictionary<BeanType, int>
         {
-            { BeanType.BlueBean, 11 },
-            { BeanType.GreenBean, 11 },
-            { BeanType.RedBean, 11 },
-            { BeanType.YellowBean, 11 },
-            { BeanType.ChiliBean, 6 },
-            { BeanType.SoyBean, 6 },
-            { BeanType.CoffeeBean, 6 }
+            { BeanType.GardenBean, 6 },
+            { BeanType.RedBean, 8 },
+            { BeanType.BlackEyedBean, 10 },
+            { BeanType.SoyBean, 12 },
+            { BeanType.GreenBean, 14 },
+            { BeanType.StinkBean, 16 },
+            { BeanType.ChiliBean, 18 },
+            { BeanType.BlueBean, 20 },
         };
     }
 
