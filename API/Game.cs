@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
-namespace BoardGameClientBBR2025
+namespace BoardGameClientBBR2025.API
 {
     public class Game
     {
@@ -56,6 +51,7 @@ namespace BoardGameClientBBR2025
                 Method = HttpMethod.Get,
                 RequestUri = new Uri($"{baseUrl}/join?gameName={gameName}&name={name}"),
             };
+
             using (var response = await httpClient.SendAsync(request))
             {
                 response.EnsureSuccessStatusCode();
@@ -64,7 +60,7 @@ namespace BoardGameClientBBR2025
             }
         }
 
-        // NOT WORKING GIVES 405. FORBIDDEN. WHY CANT WE MAKE GAME? WHYYYYYY
+        // NOT WORKING GIVES 405. FORBIDDEN. WHY CANT WE START GAME? WHYYYYYY
         //public async Task Start(string gameName)
         //{
         //    var request = new HttpRequestMessage
@@ -78,5 +74,5 @@ namespace BoardGameClientBBR2025
         //        response.EnsureSuccessStatusCode();
         //    }
         //}
-        }
+    }
 }
