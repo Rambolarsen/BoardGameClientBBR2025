@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using BoardGameClientBBR2025;
+﻿using BoardGameClientBBR2025.API;
 
 var client = new HttpClient();
 var game = new Game(client);
