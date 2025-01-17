@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using BoardGameClientBBR2025.GameBoard;
+﻿using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.Planting
 {
