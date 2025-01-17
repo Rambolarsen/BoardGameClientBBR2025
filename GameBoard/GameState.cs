@@ -35,7 +35,7 @@ namespace BoardGameClientBBR2025.GameBoard
 		public List<Trade> AvailableTrades { get; set; }
 
 		[JsonPropertyName("discardPile")]
-		public List<object> DiscardPile { get; set; }
+		public List<Card> DiscardPile { get; set; }
 
 		[JsonPropertyName("players")]
 		public List<Player> Players { get; set; }

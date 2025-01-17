@@ -17,10 +17,10 @@ namespace BoardGameClientBBR2025.GameBoard
 		public int Hand { get; set; }
 
 		[JsonPropertyName("drawnCards")]
-		public List<object> DrawnCards { get; set; }
+		public List<Card> DrawnCards { get; set; }
 
 		[JsonPropertyName("tradedCards")]
-		public List<object> TradedCards { get; set; }
+		public List<Card> TradedCards { get; set; }
 
 		[JsonPropertyName("isActive")]
 		public bool IsActive { get; set; }

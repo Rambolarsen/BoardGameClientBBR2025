@@ -2,7 +2,7 @@
 using BoardGameClientBBR2025.GameBoard;
 
 var client = new HttpClient();
-var gameClient = new Game(client);
+var gameClient = new GameClient(client);
 const string player1 = "Mjøndalen";
 const string player2 = "Mjøndalen2";
 

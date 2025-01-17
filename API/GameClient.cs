@@ -3,12 +3,12 @@ using System.Net;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
-    public class Game
+    public class GameClient
     {
         private readonly HttpClient httpClient;
 
 
-        public Game(HttpClient httpClient)
+        public GameClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
