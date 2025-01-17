@@ -2,7 +2,7 @@
 {
 	public static class GamePhaseEnumExtensions
 	{
-		public static string GetStateName(this GamePhaseEnum gamePhase)
+		public static string GetPhaseName(this GamePhaseEnum gamePhase)
 		{
 			switch (gamePhase)
 			{
