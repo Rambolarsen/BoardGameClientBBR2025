@@ -2,7 +2,7 @@
 
 namespace BoardGameClientBBR2025.GameBoard
 {
-	public class Card
+	public interface ICard
 	{
 		[JsonPropertyName("id")]
 		public Guid Id { get; set; }

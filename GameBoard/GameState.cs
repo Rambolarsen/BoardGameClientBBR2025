@@ -41,6 +41,6 @@ namespace BoardGameClientBBR2025.GameBoard
 		public List<Player> Players { get; set; }
 
 		[JsonPropertyName("yourHand")]
-		public List<Card> YourHand { get; set; }
+		public List<ICard> YourHand { get; set; }
 	}
 }
