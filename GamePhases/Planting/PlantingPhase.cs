@@ -7,7 +7,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
     {
         public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
 
-        public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
+        public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
         {
             await PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields, gameState.Name, Guid.Empty, playingClient);
         }
