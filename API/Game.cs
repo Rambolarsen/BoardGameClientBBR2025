@@ -1,5 +1,5 @@
-﻿using System.Text.Json;
-
+using BoardGameClientBBR2025.GameBoard;
+using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
     public class Game
