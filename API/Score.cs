@@ -8,7 +8,7 @@ namespace BoardGameClientBBR2025.API
         private readonly string baseUrl = "https://localhost:5186/api/score";
 
 
-        public GetScore(HttpClient httpClient)
+        public Score(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
