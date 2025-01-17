@@ -1,6 +1,5 @@
 ﻿using BoardGameClientBBR2025;
 using BoardGameClientBBR2025.API;
-using BoardGameClientBBR2025.GameBoard;
 
 var client = new HttpClient();
 var gameClient = new GameClient(client);
@@ -14,35 +13,27 @@ if(games == null)
     return;
 }
 
+var agents = new List<Agent>();
+var playerKey1 = Guid.NewGuid();
+
+var playerKey2 = Guid.NewGuid();
+
 foreach (var game in games)
 {
-    var playerKey = Guid.NewGuid();
-    var playerKey2 = Guid.NewGuid();
+    agents.Add(new Agent(game, playerKey1, player1, gameClient));
+    agents.Add(new Agent(game, playerKey2, player2, gameClient));
     var gameName = game.Name;
-    if(game.CurrentState.ToGameState() == GameStateEnum.Registering)
-    {
-        
-        await gameClient.JoinGame(game.Name, playerKey, player1);
-        await gameClient.JoinGame(game.Name, playerKey2, player2);
-
-
-        //await gameClient.Start(game.Name);
-
-        //var updatedGame =  await gameClient.GetGame(game.Name);
-        //var scoreClient = new ScoreClient(client);
-        //var score = await scoreClient.GetScore();
-        //Console.WriteLine("Score:" + score);
-
-        //var playingClient = new PlayingClient(client);
-        //var plant = await playingClient.Plant(updatedGame.Name, playerKey.ToString(), updatedGame.Players[0].Fields[0].Key.ToString());
-
-    }
-    else if (game.CurrentState.ToGameState() == GameStateEnum.Playing)
-    {
-
-    }
+    
     Console.Write(game);
 }
+
+
+foreach (var agent in agents)
+{
+    agent.Start();
+}
+
+
 
 //var state = await game.GetGame();
 //var request = new HttpRequestMessage
