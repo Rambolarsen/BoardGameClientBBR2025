@@ -65,18 +65,3 @@ public class BohnanzaDeck
         Console.WriteLine($"Total cards in deck: {GetTotalCards()}");
     }
 }
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Create a new deck of Bohnanza
-        var bohnanzaDeck = new BohnanzaDeck();
-
-        // Display the deck overview
-        bohnanzaDeck.DisplayDeckOverview();
-        
-        // Example of querying a specific bean count
-        Console.WriteLine($"Number of BlueBeans: {bohnanzaDeck.GetBeanCount(BohnanzaDeck.BeanType.BlueBean)}");
-    }
-}
