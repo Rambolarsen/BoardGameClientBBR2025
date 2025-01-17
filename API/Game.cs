@@ -6,7 +6,6 @@ namespace BoardGameClientBBR2025.API
     public class Game
     {
         private readonly HttpClient httpClient;
-        private readonly string baseUrl = "https://localhost:7046/api/game";
 
 
         public Game(HttpClient httpClient)
@@ -19,7 +18,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}?gameName={gameName}"),
+                RequestUri = new Uri($"{Constants.GameUrl}?gameName={gameName}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -35,7 +34,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/all"),
+                RequestUri = new Uri($"{Constants.GameUrl}/all"),
             };
 
             var response = await httpClient.SendAsync(request);
@@ -50,7 +49,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{baseUrl}/join?gameName={gameName}&playerKey={playerKey}&name={name}"),
+                RequestUri = new Uri($"{Constants.GameUrl}/join?gameName={gameName}&playerKey={playerKey}&name={name}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -63,19 +62,18 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        // NOT WORKING GIVES 405. FORBIDDEN. WHY CANT WE START GAME? WHYYYYYY
-        //public async Task Start(string gameName)
-        //{
-        //    var request = new HttpRequestMessage
-        //    {
-        //        Method = HttpMethod.Post,
-        //        RequestUri = new Uri($"{baseUrl}/start?gameName={gameName}"),
-        //    };
+        public async Task Start(string gameName)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{Constants.GameUrl}/start?gameName={gameName}"),
+            };
 
-        //    using (var response = await httpClient.SendAsync(request))
-        //    {
-        //        response.EnsureSuccessStatusCode();
-        //    }
-        //}
+            using (var response = await httpClient.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
     }
 }

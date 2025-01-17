@@ -1,15 +1,14 @@
-using BoardGameClientBBR2025.API;
 using BoardGameClientBBR2025.GameBoard;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
-    public class Playing
+    public class PlayingClient
     {
         private readonly HttpClient httpClient;
         private readonly string baseUrl = "https://localhost:7046/api/playing";
 
 
-        public Playing(HttpClient httpClient)
+        public PlayingClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
@@ -94,7 +93,7 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> RequestTrade(string gameName, string playerId)
+        public async Task<RequestTrade?> RequestTrade(string gameName, string playerId)
         {
             var request = new HttpRequestMessage
             {
@@ -110,7 +109,7 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<string> AcceptTrade(string gameName, string playerId)
+        public async Task<AcceptTrade?> AcceptTrade(string gameName, string playerId)
         {
             var request = new HttpRequestMessage
             {
@@ -139,5 +138,3 @@ namespace BoardGameClientBBR2025.API
         public string[] payment { get; set; }
     }
 }
-
-Trade.OfferedCards
