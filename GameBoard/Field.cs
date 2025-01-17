@@ -9,5 +9,15 @@ namespace BoardGameClientBBR2025.GameBoard
 
 		[JsonPropertyName("card")]
 		public List<ICard> Card { get; set; }
+
+		public int CoinValue()
+		{
+			if (!Card.Any())
+			{
+				return 0;
+			}
+
+			return Card.First().CoinValue(Card.Count);
+		}
 	}
 }
