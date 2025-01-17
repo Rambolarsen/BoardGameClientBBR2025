@@ -5,12 +5,10 @@ namespace BoardGameClientBBR2025.GamePhases.Trading;
 
 public class TradingPhase : GamePhaseBase, IGamePhase
 {
-    private readonly PlayingClient _playingClient = new PlayingClient(new HttpClient());
-
     public override GamePhaseEnum GamePhase => GamePhaseEnum.Trading;
 
     public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
     {
-        await _playingClient.EndTrading(gameState.Name, gameState.CurrentPlayer);
+        await playingClient.EndTrading(gameState.Name, gameState.CurrentPlayer);
     }
 }

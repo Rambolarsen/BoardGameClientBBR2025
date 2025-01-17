@@ -5,11 +5,9 @@ namespace BoardGameClientBBR2025.GamePhases.TradePlanting;
 
 public class TradePlantingPhase : GamePhaseBase, IGamePhase
 {
-    private readonly PlayingClient _playingClient = new PlayingClient(new HttpClient());
-
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
-    public override async Task DoPhase(GameState gameState)
+    public override async Task DoPhase(GameState gameState, PlayingClient playingClient)
     {
         var player = gameState.Players.First(p => p.Name == gameState.CurrentPlayer);
 
@@ -21,7 +19,7 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
 
         foreach (object card in cardsToPlant)
         {
-            _playingClient.TradePlant(gameState.Name, gameState.CurrentPlayer, GetCardId(card), firstFieldId);
+            playingClient.TradePlant(gameState.Name, gameState.CurrentPlayer, GetCardId(card), firstFieldId);
         }
     }
 
