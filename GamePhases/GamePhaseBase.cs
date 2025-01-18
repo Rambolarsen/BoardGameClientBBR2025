@@ -17,9 +17,9 @@ namespace BoardGameClientBBR2025.GamePhases
 		        return;
 	        }
 	        
-	        await PhaseImplementation(gameState.Name, playerId.ToString(), playerName, gameState.YourHand, activePlayer, playingClient);
+	        await PhaseImplementation(gameState.Name, playerId.ToString(), playerName, gameState.YourHand, activePlayer, gameState.GetUs(playerName), playingClient);
         }
 
-        protected abstract Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient);
+        protected abstract Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient);
     }
 }

@@ -9,9 +9,9 @@ public class TradingPhase : GamePhaseBase, IGamePhase
     private List<Card> _wantCards = [];
     private List<Card> _getRidOfCards = [];
 
-	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
+	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
     {
-		CalculatePossibleTrades(ourPlayerId, ourPlayerName);
+		//CalculatePossibleTrades(ourPlayerId, ourPlayerName);
 	    
 	    await playingClient.EndTrading(gameName, ourPlayerId);
 	}
