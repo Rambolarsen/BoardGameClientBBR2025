@@ -9,25 +9,27 @@ public class TradingPhase : GamePhaseBase, IGamePhase
     private List<Card> _wantCards = [];
     private List<Card> _getRidOfCards = [];
 
-	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string playerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
+	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
     {
-		await playingClient.EndTrading(gameName, ourPlayerId);
+		CalculatePossibleTrades(ourPlayerId, ourPlayerName);
+	    
+	    await playingClient.EndTrading(gameName, ourPlayerId);
 	}
 
-	public void CalculatePossibleTrades(string ourPlayerId, string ourPlayerName, GameState gameState)
+	public void CalculatePossibleTrades(string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer)
 	{
-		var us = gameState.GetUs(ourPlayerName);
-		var ourHand = gameState.YourHand;
-		var ourFields = us.Fields;
+		//var us = gameState.GetUs(ourPlayerName);
+		//var ourHand = gameState.YourHand;
+		//var ourFields = us.Fields;
 
-		var drawnCards = new List<Card>();
-		if (gameState.ArWeActivePlayer(ourPlayerId))
-		{
-			drawnCards = gameState.GetUs(ourPlayerName).DrawnCards;
-		}
+		//var drawnCards = new List<Card>();
+		//if (gameState.ArWeActivePlayer(ourPlayerId))
+		//{
+		//	drawnCards = gameState.GetUs(ourPlayerName).DrawnCards;
+		//}
 
-		_wantCards = FindWantCards(ourHand, drawnCards, ourFields);
-		_getRidOfCards = FindGetRidOfCards(ourHand, drawnCards, ourFields);
+		//_wantCards = FindWantCards(ourHand, drawnCards, ourFields);
+		//_getRidOfCards = FindGetRidOfCards(ourHand, drawnCards, ourFields);
 	}
 
 	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, PlayingClient playingClient)
