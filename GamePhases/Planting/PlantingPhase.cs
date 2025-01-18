@@ -66,7 +66,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 
 		private Field FindBestFieldToSell(List<Field> fields)
 		{
-			return fields.OrderBy(x => x.Card.Potential()).First();
+			return fields.AllowedToHarvest().OrderBy(x => x.Card.Potential()).First();
 		}
     }
 }
