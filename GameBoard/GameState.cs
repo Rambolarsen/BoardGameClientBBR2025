@@ -47,5 +47,15 @@ namespace BoardGameClientBBR2025.GameBoard
 		{
 			return Players.FirstOrDefault(x => x.IsActive);
 		}
+
+		public Player GetUs(string ourPlayerName)
+		{
+			return Players.First(x => x.Name == ourPlayerName);
+		}
+
+		public bool ArWeActivePlayer(string ourPlayerId)
+		{
+			return CurrentPlayer == ourPlayerId;
+		}
 	}
 }
