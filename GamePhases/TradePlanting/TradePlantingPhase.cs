@@ -3,7 +3,7 @@ using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.TradePlanting;
 
-public class TradePlantingPhase : GamePhaseBase, IGamePhase
+public class TradePlantingPhase : PlantingPhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
@@ -15,27 +15,8 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
 
 		foreach (var card in cardsToPlant)
 		{
-			var validField = GetValidField(card, activePlayer);
-			if (validField != null)
-			{
-				await validField.PlantBean(card, gameName, ourPlayerId, playingClient);
-			}
+			var field = FindBestFieldToPlantOn(card, activePlayer.Fields);
+			await field.PlantBean(card, gameName, ourPlayerId, playingClient);
 		}
 	}
-
-    private static Field? GetValidField(Card card, Player activePlayer)
-    {
-        var fields = activePlayer.Fields;
-
-        var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
-
-        if (fieldContainingSameCardType != null)
-        {
-            return fieldContainingSameCardType;
-        }
-
-        var largestField = fields.MaxBy(f => f.Card.Count);
-
-        return largestField;
-    }
 }

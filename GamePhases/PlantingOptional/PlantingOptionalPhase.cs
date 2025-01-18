@@ -3,7 +3,7 @@ using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.PlantingOptional;
 
-public class PlantingOptionalPhase : GamePhaseBase, IGamePhase
+public class PlantingOptionalPhase : PlantingPhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.PlantingOptional;
 
@@ -26,17 +26,6 @@ public class PlantingOptionalPhase : GamePhaseBase, IGamePhase
 		    return;
 	    }
 
-	    await PlantIfSameAlreadyExistsOnField(cards.FirstCardOnHand(), fields, gameName, playerId, playingClient);
-    }
-
-
-    private async Task PlantIfSameAlreadyExistsOnField(Card card, List<Field> fields, string gameName, string playerId, PlayingClient playingClient)
-    {
-	    var fieldWithSameBeanType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
-
-	    if (fieldWithSameBeanType != null)
-	    {
-		    await fieldWithSameBeanType.PlantBean(card, gameName, playerId, playingClient);
-	    }
+	    await PlantIfSameBeanTypeAlreadyExistsOnField(cards.FirstCardOnHand(), fields, gameName, playerId, playingClient);
     }
 }
