@@ -20,8 +20,8 @@ namespace BoardGameClientBBR2025
         private TradingPhase tradingPhase;
         private TradePlantingPhase tradePlantingPhase;
 
-        public Agent(GameState gameState, 
-            Guid playerId, string playerName, 
+        public Agent(GameState gameState,
+            Guid playerId, string playerName,
             GameClient gameClient,
             PlayingClient playingClient)
         {
@@ -49,7 +49,7 @@ namespace BoardGameClientBBR2025
         }
         private async Task Run()
         {
-            gameState = await gameClient.GetGame(gameState.Name);
+            gameState = await gameClient.GetGame(gameState.Name, playerId);
             if (gameState.CurrentState.ToGameState() == GameStateEnum.Registering)
             {
                 if (!gameState.Players.Any(x => x.Name == playerName))
@@ -66,6 +66,7 @@ namespace BoardGameClientBBR2025
                 else
                 {
                     Console.WriteLine($"Waiting for Game start: {gameState.Name}");
+                    gameClient.Start(gameState.Name);
                 }
 
             }
@@ -103,10 +104,11 @@ namespace BoardGameClientBBR2025
                         await tradingPhase.ConsiderTrades(gameState.Name, playerId.ToString(), playerName, gameState, playingClient);
                     }
                 }
-            } else if (gameState.CurrentState.ToGameState() == GameStateEnum.GameDone)
+            }
+            else if (gameState.CurrentState.ToGameState() == GameStateEnum.GameDone)
             {
                 Console.WriteLine($"Game is done! Game name: {gameState.Name}. Waiting for new game.");
-            } 
+            }
         }
 
         private async Task Runner(Task taskToRun, GamePhaseEnum gamePhaseEnum)
