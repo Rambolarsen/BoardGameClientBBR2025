@@ -18,6 +18,8 @@ namespace BoardGameClientBBR2025.GamePhases
 	        }
 	        
 	        await PhaseImplementation(gameState.Name, playerId.ToString(), playerName, gameState.PhaseEndTimestamp, gameState.YourHand, activePlayer, gameState.GetUs(playerName), playingClient);
+
+	        await Task.Delay(100);
         }
 
         protected abstract Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, DateTime phaseEnds, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient);
