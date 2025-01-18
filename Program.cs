@@ -19,7 +19,7 @@ var playerKey1 = Guid.NewGuid();
 
 var playerKey2 = Guid.NewGuid();
 
-//var game = games.First();
+//var game = games.ElementAt(1);
 foreach (var game in games)
 {
     agents.Add(new Agent(game, playerKey1, player1, gameClient, playingClient));

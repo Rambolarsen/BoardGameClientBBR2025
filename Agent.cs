@@ -91,6 +91,14 @@ namespace BoardGameClientBBR2025
                             break;
                     }
                 }
+                else
+                {
+                    //Ikke vår tur, vi ser kun etter trades
+                    if(gameState.CurrentPhase.ToGamePhase() == GamePhaseEnum.Trading)
+                    {
+                        //
+                    }
+                }
             }
         }
 
