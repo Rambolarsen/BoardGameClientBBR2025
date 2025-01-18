@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace BoardGameClientBBR2025.GameBoard
+﻿namespace BoardGameClientBBR2025.GameBoard
 {
 	public static class CardListExtensions
 	{
@@ -155,15 +153,7 @@ namespace BoardGameClientBBR2025.GameBoard
 
 			var firstCard = cards.First();
 
-			foreach (var oneExchangeValue in firstCard.ExchangeMap.OrderBy(x => x.CropSize))
-			{
-				if (cards.Count >= oneExchangeValue.CropSize)
-				{
-					return oneExchangeValue;
-				}
-			}
-
-			return null;
+			return firstCard.ExchangeMap.CurrentExchangeMap(cards.Count);
 		}
 
 		public static ExchangeMap? NextExchangeMap(this List<Card> cards)
@@ -178,14 +168,9 @@ namespace BoardGameClientBBR2025.GameBoard
 				return cards.MaxExchangeMap();
 			}
 
-			var currentExchangeMap = cards.CurrentExchangeMap();
+			var firstCard = cards.First();
 
-			if (currentExchangeMap == null)
-			{
-				return cards.MinExchangeMap();
-			}
-
-			return cards.First().ExchangeMap.OrderBy(x => x.CropSize).FirstOrDefault(x => x.CropSize > currentExchangeMap.CropSize);
+			return firstCard.ExchangeMap.NextExchangeMap(cards.Count);
 		}
 
 		public static ExchangeMap? MaxExchangeMap(this List<Card> cards)
@@ -200,7 +185,7 @@ namespace BoardGameClientBBR2025.GameBoard
 				return null;
 			}
 
-			return cards.First().ExchangeMap.OrderByDescending(x => x.CropSize).First();
+			return cards.First().ExchangeMap.MaxExchangeMap();
 		}
 
 		public static ExchangeMap? MinExchangeMap(this List<Card> cards)
@@ -215,7 +200,7 @@ namespace BoardGameClientBBR2025.GameBoard
 				return null;
 			}
 
-			return cards.First().ExchangeMap.OrderBy(x => x.CropSize).First();
+			return cards.First().ExchangeMap.MinExchangeMap();
 		}
 	}
 }
