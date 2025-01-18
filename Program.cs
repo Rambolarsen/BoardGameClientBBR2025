@@ -4,7 +4,7 @@ using BoardGameClientBBR2025.API;
 var client = new HttpClient();
 var gameClient = new GameClient(client);
 var playingClient = new PlayingClient(client);
-const string player1 = "Mjøndalen";
+const string player1 = "Mjondalen";
 const string player2 = "Mjøndalen2";
 
 var games = await gameClient.GetAllGames();
@@ -19,31 +19,16 @@ var playerKey1 = Guid.NewGuid();
 
 var playerKey2 = Guid.NewGuid();
 
-var game = games.First();
-//foreach (var game in games)
-//{
-agents.Add(new Agent(game, playerKey1, player1, gameClient, playingClient));
+//var game = games.First();
+foreach (var game in games)
+{
+    agents.Add(new Agent(game, playerKey1, player1, gameClient, playingClient));
     //agents.Add(new Agent(game, playerKey2, player2, gameClient, playingClient));
-//}
+}
 
 var agentTasks = agents.Select(agent => Task.Run(() => agent.Start())).ToArray();
 await Task.WhenAll(agentTasks);
 
-
-
-//var state = await game.GetGame();
-//var request = new HttpRequestMessage
-//{
-//    Method = HttpMethod.Get,
-//    RequestUri = new Uri("https://localhost:7046/api/game/all"),
-//};
-
-//using (var response = await client.SendAsync(request))
-//{
-//    response.EnsureSuccessStatusCode();
-//    var body = await response.Content.ReadAsStringAsync();
-//    Console.WriteLine(body);
-//}
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();

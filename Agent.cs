@@ -53,10 +53,19 @@ namespace BoardGameClientBBR2025
             {
                 if(!gameState.Players.Any(x => x.Name == playerName))
                 {
-                    await gameClient.JoinGame(gameState.Name, playerId, playerName);
+                    if(await gameClient.JoinGame(gameState.Name, playerId, playerName))
+                    {
+                        Console.WriteLine($"Registered!. Game name: {gameState.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Unable to register game. Game name: {gameState.Name}. Will retry shortly.");
+                    }
                 }
-
-                Console.WriteLine($"Waiting for Game start. Current state: {GameStateEnum.Registering}. Game name: {gameState.Name}");
+                else
+                {
+                    Console.WriteLine($"Waiting for Game start: {gameState.Name}");
+                }
 
             }
             else if (gameState.CurrentState.ToGameState() == GameStateEnum.Playing)
@@ -69,19 +78,32 @@ namespace BoardGameClientBBR2025
                     switch (gameState.CurrentPhase.ToGamePhase())
                     {
                         case GamePhaseEnum.Planting:
-                            await plantingPhase.DoPhase(playerId, gameState, playingClient);
+                            await Runner(plantingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.Planting);
                             break;
                         case GamePhaseEnum.PlantingOptional:
-                            await plantingOptionalPhase.DoPhase(playerId, gameState, playingClient);
+                            await Runner(plantingOptionalPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.PlantingOptional);
                             break;
                         case GamePhaseEnum.Trading:
-                            await tradingPhase.DoPhase(playerId, gameState, playingClient);
+                            await Runner(tradingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.Trading);
                             break;
                         case GamePhaseEnum.TradePlanting:
-                            await tradePlantingPhase.DoPhase(playerId, gameState, playingClient);
+                            await Runner(tradePlantingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.TradePlanting);
                             break;
                     }
                 }
+            }
+        }
+
+        private async Task Runner(Task taskToRun, GamePhaseEnum gamePhaseEnum)
+        {
+            Console.WriteLine($"Playing Game! Current Phase: {gamePhaseEnum}. Game name: {gameState.Name}");
+            try
+            {
+                await taskToRun;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GamePhase: {ex}");
             }
         }
 
