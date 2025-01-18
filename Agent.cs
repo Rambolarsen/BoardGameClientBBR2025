@@ -47,14 +47,14 @@ namespace BoardGameClientBBR2025
                 Thread.Sleep(1000);
             }
         }
-        private async Task Run() 
+        private async Task Run()
         {
             gameState = await gameClient.GetGame(gameState.Name);
             if (gameState.CurrentState.ToGameState() == GameStateEnum.Registering)
             {
-                if(!gameState.Players.Any(x => x.Name == playerName))
+                if (!gameState.Players.Any(x => x.Name == playerName))
                 {
-                    if(await gameClient.JoinGame(gameState.Name, playerId, playerName))
+                    if (await gameClient.JoinGame(gameState.Name, playerId, playerName))
                     {
                         Console.WriteLine($"Registered!. Game name: {gameState.Name}");
                     }
@@ -71,9 +71,9 @@ namespace BoardGameClientBBR2025
             }
             else if (gameState.CurrentState.ToGameState() == GameStateEnum.Playing)
             {
-                Console.WriteLine($"Playing Game! Current state: {GameStateEnum.Playing}. Game name: {gameState.Name}");
+                Console.WriteLine($"Playing Game! Current state: {GameStateEnum.Playing}. Game name: {gameState.Name}. Current Player: {gameState.CurrentPlayer}. Current Phase: {gameState.CurrentPhase}");
 
-                if (gameState.CurrentPlayer.Equals(playerName)) 
+                if (gameState.CurrentPlayer.Equals(playerName))
                 {
                     //vår tur! Gjør noe
                     switch (gameState.CurrentPhase.ToGamePhase())
@@ -94,13 +94,19 @@ namespace BoardGameClientBBR2025
                 }
                 else
                 {
-                    //Ikke vår tur, vi ser kun etter trades
-                    if(gameState.CurrentPhase.ToGamePhase() == GamePhaseEnum.Trading)
+                    //Ikke vår tur, vi ser kun etter trades eller kalkulerer trades
+
+                    //CalculateTrades TODO
+
+                    if (gameState.CurrentPhase.ToGamePhase() == GamePhaseEnum.Trading)
                     {
-                        //
+                        await tradingPhase.ConsiderTrades(gameState.Name, playerId.ToString(), playerName, gameState.AvailableTrades, gameState, gameClient);
                     }
                 }
-            }
+            } else if (gameState.CurrentState.ToGameState() == GameStateEnum.GameDone)
+            {
+                Console.WriteLine($"Game is done! Game name: {gameState.Name}. Waiting for new game.");
+            } 
         }
 
         private async Task Runner(Task taskToRun, GamePhaseEnum gamePhaseEnum)

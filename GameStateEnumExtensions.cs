@@ -10,6 +10,8 @@
                     return "Registering";
                 case GameStateEnum.Playing:
                     return "Playing";
+                case GameStateEnum.GameDone:
+                    return "GameDone";
                 default:
                     throw new Exception($"Could not find a game state for {gameState}");
             }
@@ -23,6 +25,8 @@
                     return GameStateEnum.Registering;
                 case "Playing":
                     return GameStateEnum.Playing;
+                case "GameDome":
+                    return GameStateEnum.GameDone;
                 default:
                     throw new Exception($"Could not find a game state for {gameStateEnum}");
             }
