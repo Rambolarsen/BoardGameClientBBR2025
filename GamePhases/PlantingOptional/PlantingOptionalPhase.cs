@@ -7,7 +7,7 @@ public class PlantingOptionalPhase : PlantingPhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.PlantingOptional;
 
-    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
+    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
     {
 		await PlantIfWeWantTo(ourHand, activePlayer.Fields, gameName, ourPlayerId, playingClient);
 

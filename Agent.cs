@@ -79,16 +79,16 @@ namespace BoardGameClientBBR2025
                     switch (gameState.CurrentPhase.ToGamePhase())
                     {
                         case GamePhaseEnum.Planting:
-                            await Runner(plantingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.Planting);
+                            await Runner(plantingPhase.DoPhase(playerId, playerName, gameState, playingClient), GamePhaseEnum.Planting);
                             break;
                         case GamePhaseEnum.PlantingOptional:
-                            await Runner(plantingOptionalPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.PlantingOptional);
+                            await Runner(plantingOptionalPhase.DoPhase(playerId, playerName, gameState, playingClient), GamePhaseEnum.PlantingOptional);
                             break;
                         case GamePhaseEnum.Trading:
-                            await Runner(tradingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.Trading);
+                            await Runner(tradingPhase.DoPhase(playerId, playerName, gameState, playingClient), GamePhaseEnum.Trading);
                             break;
                         case GamePhaseEnum.TradePlanting:
-                            await Runner(tradePlantingPhase.DoPhase(playerId, gameState, playingClient), GamePhaseEnum.TradePlanting);
+                            await Runner(tradePlantingPhase.DoPhase(playerId, playerName, gameState, playingClient), GamePhaseEnum.TradePlanting);
                             break;
                     }
                 }

@@ -7,6 +7,6 @@ namespace BoardGameClientBBR2025
     {
         GamePhaseEnum GamePhase { get; }
         string PhaseName { get; }
-        Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient);
+        Task DoPhase(Guid playerId, string playerName, GameState gameState, PlayingClient playingClient);
     }
 }
