@@ -136,7 +136,6 @@ namespace BoardGameClientBBR2025.API
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AcceptTrade>(body);
             }
         }
         

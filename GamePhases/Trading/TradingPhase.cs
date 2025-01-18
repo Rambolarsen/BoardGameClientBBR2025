@@ -39,27 +39,43 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 
 	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, PlayingClient playingClient)
 	{
-		//foreach (var oneTrade in gameState.AvailableTrades)
-		//{
-		//	foreach (var oneTypeOffered in oneTrade.CardTypesWanted)
-		//	{
-		//		if (_wantCards.Any(x => x.Type == oneTypeOffered))
-		//		{
-		//			foreach (var oneTypeWanted in oneTrade.CardTypesWanted)
-		//			{
-		//				if (_getRidOfCards.Any(x => x.Type == oneTypeWanted))
-		//				{
-		//					playingClient.AcceptTrade(gameName, )
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
+		foreach (var oneTrade in gameState.AvailableTrades)
+		{
+			foreach (var oneTypeOffered in oneTrade.CardTypesWanted)
+			{
+				if (_wantCards.Any(x => x.Type == oneTypeOffered))
+				{
+					foreach (var oneTypeWanted in oneTrade.CardTypesWanted)
+					{
+						if (_getRidOfCards.Any(x => x.Type == oneTypeWanted))
+						{
+							var acceptTrade = new AcceptTrade
+							{
+								NegotiationId = oneTrade.NegotiationId.ToString(),
+								Payment = _getRidOfCards.Where(x => x.Type == oneTypeWanted).Select(x => x.Type).ToArray()
+							};
+							await playingClient.AcceptTrade(gameName, ourPlayerId, acceptTrade);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName, PlayingClient playingClient)
 	{
-		
+		if (!_wantCards.Any() || !_getRidOfCards.Any())
+		{
+			return;
+		}
+
+		var requestTrade = new RequestTrade
+		{
+			CardTypesWanted = _wantCards.Select(x => x.Type).ToArray(),
+			OfferedCards = _getRidOfCards.Select(x => x.Type).ToArray()
+		};
+
+		await playingClient.RequestTrade(gameName, ourPlayerId, requestTrade);
 	}
 
 	private List<Card> GetAvailableCards(List<Card> ourHand, List<Card> drawnCards)
