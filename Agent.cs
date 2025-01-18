@@ -66,6 +66,7 @@ namespace BoardGameClientBBR2025
                 else
                 {
                     Console.WriteLine($"Waiting for Game start: {gameState.Name}");
+                    //await gameClient.Start(gameState.Name);
                 }
 
             }

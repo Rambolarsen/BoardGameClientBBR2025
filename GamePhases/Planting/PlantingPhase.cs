@@ -9,12 +9,13 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 
         protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
         {
-	        if (!ourHand.Any())
-	        {
-		        return;
-	        }
+            await playingClient.Plant(gameName, ourPlayerId, activePlayer.Fields.First().Key.ToString());
+	        //if (!ourHand.Any())
+	        //{
+		       // return;
+	        //}
 
-	        await PlantCardOnBestField(ourHand.FirstCardOnHand(), activePlayer.Fields, gameName, ourPlayerId, playingClient);
+	        //await PlantCardOnBestField(ourHand.FirstCardOnHand(), activePlayer.Fields, gameName, ourPlayerId, playingClient);
         }
     }
 }
