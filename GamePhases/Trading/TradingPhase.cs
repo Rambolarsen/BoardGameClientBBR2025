@@ -16,6 +16,12 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 
 	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, GameClient gameClient)
 	{
+
+	}
+
+	public async Task CalculatePossibleTrades(string ourPlayerId, string ourPlayerName, GameState gameState)
+	{
+
 	}
 
 	private async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, GameClient gameClient)
