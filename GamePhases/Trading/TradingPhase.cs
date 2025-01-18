@@ -14,17 +14,20 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 		await playingClient.EndTrading(gameName, ourPlayerId);
 	}
 
-	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName,
-		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
+	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, GameClient gameClient)
 	{
 	}
 
-	public async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName,
-		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
+	private async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, GameClient gameClient)
 	{
 	}
 
 	private List<Card> FindWantCards(List<Card> ourHand, List<Card> drawnCards, List<Field> ourFields)
+	{
+		return new List<Card>();
+	}
+
+	private List<Card> FindGetRidOfCards(List<Card> ourHand, List<Card> drawnCards, List<Field> ourFields)
 	{
 		return new List<Card>();
 	}
