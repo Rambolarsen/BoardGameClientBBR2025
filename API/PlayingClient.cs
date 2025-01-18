@@ -16,7 +16,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/plant?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/plant?gameName={gameName}&playerId={playerId}&fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -32,7 +32,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/end-planting?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/end-planting?gameName={gameName}&playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -48,7 +48,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/end-trading?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/end-trading?gameName={gameName}&playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -64,7 +64,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/trade-plant?gameName={gameName}?playerId={playerId}?cardId={cardId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/trade-plant?gameName={gameName}&playerId={playerId}&cardId={cardId}&fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -80,7 +80,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/harvest-field?gameName={gameName}?playerId={playerId}?fieldId={fieldId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/harvest-field?gameName={gameName}&playerId={playerId}&fieldId={fieldId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -96,7 +96,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"{Constants.GameUrl}/request-trade?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.GameUrl}/request-trade?gameName={gameName}&playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
@@ -112,7 +112,7 @@ namespace BoardGameClientBBR2025.API
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri($"{Constants.PlayingUrl}/accept-trade?gameName={gameName}?playerId={playerId}"),
+                RequestUri = new Uri($"{Constants.PlayingUrl}/accept-trade?gameName={gameName}&playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
