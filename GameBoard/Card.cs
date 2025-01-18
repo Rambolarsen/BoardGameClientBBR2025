@@ -18,7 +18,7 @@ namespace BoardGameClientBBR2025.GameBoard
 
 		public BeanType BeanType => Type.ToBeanType();
 
-		protected Card() { }
+		public Card() { }
 
 		protected Card(Card copy)
 		{

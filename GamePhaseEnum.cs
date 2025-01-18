@@ -2,7 +2,6 @@
 {
 	public enum GamePhaseEnum
 	{
-		Registering,
 		Planting,
 		PlantingOptional,
 		Trading,

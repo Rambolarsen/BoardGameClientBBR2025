@@ -6,8 +6,6 @@
 		{
 			switch (gamePhase)
 			{
-				case GamePhaseEnum.Registering:
-					return "Registering";
 				case GamePhaseEnum.Planting:
 					return "Planting";
 				case GamePhaseEnum.PlantingOptional:
@@ -25,8 +23,6 @@
 		{
 			switch (gamePhaseString)
 			{
-				case "Registering":
-					return GamePhaseEnum.Registering;
 				case "Planting":
 					return GamePhaseEnum.Planting;
 				case "PlantingOptional":
