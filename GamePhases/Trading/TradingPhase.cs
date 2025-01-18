@@ -15,14 +15,13 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 	}
 
 	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName,
-		List<Trade> availableTrades, GameState gameState)
+		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
 	{
 	}
 
-	public async Task<List<Trade>> OfferTrades(string gameName, string ourPlayerId, string ourPlayerName,
-		List<Trade> availableTrades, GameState gameState)
+	public async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName,
+		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
 	{
-		return new List<Trade>();
 	}
 
 	private List<Card> FindWantCards(List<Card> ourHand, List<Card> drawnCards, List<Field> ourFields)
