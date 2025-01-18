@@ -34,7 +34,21 @@ namespace BoardGameClientBBR2025.GameBoard
 			await playingClient.Plant(gameName, playerId, Key.ToString());
 		}
 
-		public async Task SellBeans(string gameName, string playerId, PlayingClient playingClient)
+        public async Task TradePlantBean(Card card, string gameName, string playerId, PlayingClient playingClient)
+        {
+            if (Card.Any())
+            {
+                if (Card.First().Type != card.Type)
+                {
+                    await SellBeans(gameName, playerId, playingClient);
+                }
+            }
+
+            await playingClient.TradePlant(gameName, playerId, card.Id.ToString(), Key.ToString());
+        }
+
+
+        public async Task SellBeans(string gameName, string playerId, PlayingClient playingClient)
 		{
 			await playingClient.HarvestField(gameName, playerId, Key.ToString());
 		}

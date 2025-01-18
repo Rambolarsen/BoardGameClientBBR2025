@@ -16,7 +16,7 @@ public class TradePlantingPhase : PlantingPhaseBase, IGamePhase
 		foreach (var card in cardsToPlant)
 		{
 			var field = FindBestFieldToPlantOn(card, activePlayer.Fields);
-			await field.PlantBean(card, gameName, ourPlayerId, playingClient);
+			await field.TradePlantBean(card, gameName, ourPlayerId, playingClient);
 		}
 	}
 }
