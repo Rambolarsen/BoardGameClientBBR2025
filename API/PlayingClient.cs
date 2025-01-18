@@ -135,7 +135,7 @@ namespace BoardGameClientBBR2025.API
             using (var response = await httpClient.SendAsync(request))
             {
                 response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
+                await response.Content.ReadAsStringAsync();
             }
         }
         
