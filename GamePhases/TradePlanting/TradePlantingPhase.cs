@@ -7,7 +7,7 @@ public class TradePlantingPhase : PlantingPhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
-    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
+    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, DateTime phaseEnds, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
     {
 		var cardsToPlant = new List<Card>();
 		cardsToPlant.AddRange(activePlayer.DrawnCards);

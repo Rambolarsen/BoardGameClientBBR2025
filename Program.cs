@@ -27,7 +27,8 @@ var game = games.ElementAt(1);
 //}
 
 var agentTasks = agents.Select(agent => Task.Run(() => agent.Start())).ToArray();
-await Task.WhenAll(agentTasks);
+//await Task.WhenAll(agentTasks);
+
 
 
 Console.WriteLine("Press any key to exit...");
