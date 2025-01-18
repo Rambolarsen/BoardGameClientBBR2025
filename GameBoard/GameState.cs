@@ -42,5 +42,10 @@ namespace BoardGameClientBBR2025.GameBoard
 
 		[JsonPropertyName("yourHand")]
 		public List<Card> YourHand { get; set; }
+
+		public Player? GetActivePlayer()
+		{
+			return Players.FirstOrDefault(x => x.IsActive);
+		}
 	}
 }

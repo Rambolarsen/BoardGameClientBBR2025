@@ -1,6 +1,7 @@
 ﻿using BoardGameClientBBR2025.API;
 using BoardGameClientBBR2025.GameBoard;
 using BoardGameClientBBR2025.GamePhases.Planting;
+using BoardGameClientBBR2025.GamePhases.PlantingOptional;
 using BoardGameClientBBR2025.GamePhases.TradePlanting;
 using BoardGameClientBBR2025.GamePhases.Trading;
 

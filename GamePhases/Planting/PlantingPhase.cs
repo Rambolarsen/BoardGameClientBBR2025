@@ -1,6 +1,5 @@
 ﻿using BoardGameClientBBR2025.API;
 using BoardGameClientBBR2025.GameBoard;
-using System.Collections.Generic;
 
 namespace BoardGameClientBBR2025.GamePhases.Planting
 {
@@ -8,27 +7,17 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
     {
         public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
 
-        public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
+        protected override async Task PhaseImplementation(string gameName, string ourPlayerId, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
         {
-            await PlantCards(gameState.YourHand, gameState.Players.GetActivePlayer()?.Fields, gameState.Name, playerId, playingClient);
-        }
-
-		private async Task PlantCards(List<Card> cards, List<Field>? fields, string gameName, Guid playerId, PlayingClient playingClient)
-		{
-			if (fields == null)
+			if (!ourHand.Any())
 			{
 				return;
 			}
 
-			if (!cards.Any())
-			{
-				return;
-			}
-
-			await PlantCard(cards.First(x => x.FirstCard), fields, gameName, playerId, playingClient);
+			await PlantCard(ourHand.FirstCardOnHand(), activePlayer.Fields, gameName, ourPlayerId, playingClient);
 		}
 
-		private async Task PlantCard(Card card, List<Field> fields, string gameName, Guid playerId, PlayingClient playingClient)
+        private async Task PlantCard(Card card, List<Field> fields, string gameName, string playerId, PlayingClient playingClient)
 		{
 			await SellFieldsThatAreMaxedOut(fields, gameName, playerId, playingClient);
 
@@ -37,7 +26,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
 			await fieldToPlantOn.PlantBean(card, gameName, playerId, playingClient);
 		}
 
-		private async Task SellFieldsThatAreMaxedOut(List<Field> fields, string gameName, Guid playerId, PlayingClient playingClient)
+		private async Task SellFieldsThatAreMaxedOut(List<Field> fields, string gameName, string playerId, PlayingClient playingClient)
 		{
 			foreach (var field in fields.Where(x => x.IsMaxCropSize()))
 			{

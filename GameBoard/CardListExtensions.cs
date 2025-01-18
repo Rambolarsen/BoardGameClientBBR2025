@@ -134,9 +134,9 @@
 			return nextExchangeMap.Value - currentExchangeMap.Value;
 		}
 
-		public static Card? FirstCardOnHand(this List<Card> cards)
+		public static Card FirstCardOnHand(this List<Card> cards)
 		{
-			return cards.FirstOrDefault(x => x.FirstCard);
+			return cards.First(x => x.FirstCard);
 		}
 
 		public static ExchangeMap? CurrentExchangeMap(this List<Card> cards)

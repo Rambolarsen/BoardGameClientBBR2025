@@ -21,7 +21,7 @@ namespace BoardGameClientBBR2025.GameBoard
 			return Card.CoinValue();
 		}
 
-		public async Task PlantBean(Card card, string gameName, Guid playerId, PlayingClient playingClient)
+		public async Task PlantBean(Card card, string gameName, string playerId, PlayingClient playingClient)
 		{
 			if (Card.Any())
 			{
@@ -31,12 +31,12 @@ namespace BoardGameClientBBR2025.GameBoard
 				}
 			}
 
-			await playingClient.Plant(gameName, playerId.ToString(), Key.ToString());
+			await playingClient.Plant(gameName, playerId, Key.ToString());
 		}
 
-		public async Task SellBeans(string gameName, Guid playerId, PlayingClient playingClient)
+		public async Task SellBeans(string gameName, string playerId, PlayingClient playingClient)
 		{
-			await playingClient.HarvestField(gameName, playerId.ToString(), Key.ToString());
+			await playingClient.HarvestField(gameName, playerId, Key.ToString());
 		}
 
 		public bool ContainsSameTypeOfBean(Card card)

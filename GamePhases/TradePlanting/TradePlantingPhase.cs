@@ -7,25 +7,25 @@ public class TradePlantingPhase : GamePhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
-    public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
+    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
     {
-        var player = gameState.Players.GetActivePlayer();
+		var cardsToPlant = new List<Card>();
+		cardsToPlant.AddRange(activePlayer.DrawnCards);
+		cardsToPlant.AddRange(activePlayer.TradedCards);
 
-        var cardsToPlant = new List<Card>();
-        cardsToPlant.AddRange(player.DrawnCards);
-        cardsToPlant.AddRange(player.TradedCards);
+		foreach (var card in cardsToPlant)
+		{
+			var validField = GetValidField(card, activePlayer);
+			if (validField != null)
+			{
+				await validField.PlantBean(card, gameName, ourPlayerId, playingClient);
+			}
+		}
+	}
 
-        foreach (var card in cardsToPlant)
-        {
-            var validField = GetValidField(card, gameState);
-
-            await validField.PlantBean(card, gameState.Name, playerId, playingClient);
-        }
-    }
-
-    private static Field GetValidField(Card card, GameState gameState)
+    private static Field? GetValidField(Card card, Player activePlayer)
     {
-        var fields = gameState.Players.First(p => p.Name == gameState.CurrentPlayer).Fields;
+        var fields = activePlayer.Fields;
 
         var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
 
