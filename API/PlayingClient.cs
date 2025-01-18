@@ -116,19 +116,26 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-        public async Task<AcceptTrade?> AcceptTrade(string gameName, string playerId)
+        public async Task AcceptTrade(string gameName, string playerId, AcceptTrade acceptTrade)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
                 RequestUri = new Uri($"{Constants.PlayingUrl}/accept-trade?gameName={gameName}&playerId={playerId}"),
+
+                Content = new StringContent(JsonSerializer.Serialize(acceptTrade))
+                {
+                    Headers =
+                    {
+                        ContentType = new MediaTypeHeaderValue("application/json")
+                    }
+                }
             };
 
             using (var response = await httpClient.SendAsync(request))
             {
                 response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AcceptTrade>(body);
+                await response.Content.ReadAsStringAsync();
             }
         }
         
