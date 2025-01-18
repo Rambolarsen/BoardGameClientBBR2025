@@ -12,7 +12,7 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, DateTime phaseEnds, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
 	{
 		//var timeToQuit = phaseEnds - TimeSpan.FromMilliseconds(20);
-	 //   CalculatePossibleTrades(ourPlayerId, ourPlayerName, ourHand, us);
+		//CalculatePossibleTrades(ourPlayerId, ourPlayerName, ourHand, us);
 		//await OfferTrades(gameName, ourPlayerId, ourPlayerName, playingClient);
 
 		//while (DateTime.Now < timeToQuit)
@@ -25,16 +25,16 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 
 	public void CalculatePossibleTrades(string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player us)
 	{
-		var ourFields = us.Fields;
+		//var ourFields = us.Fields;
 
-		var drawnCards = new List<Card>();
-		if (us.IsActive)
-		{
-			drawnCards = us.DrawnCards;
-		}
+		//var drawnCards = new List<Card>();
+		//if (us.IsActive)
+		//{
+		//	drawnCards = us.DrawnCards;
+		//}
 
-		_wantCards = FindWantCards(ourHand, drawnCards, ourFields);
-		_getRidOfCards = FindGetRidOfCards(ourHand, drawnCards, ourFields);
+		//_wantCards = FindWantCards(ourHand, drawnCards, ourFields);
+		//_getRidOfCards = FindGetRidOfCards(ourHand, drawnCards, ourFields);
 	}
 
 	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName, GameState gameState, PlayingClient playingClient)
