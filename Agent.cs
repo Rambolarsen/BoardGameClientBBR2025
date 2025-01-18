@@ -100,7 +100,7 @@ namespace BoardGameClientBBR2025
 
                     if (gameState.CurrentPhase.ToGamePhase() == GamePhaseEnum.Trading)
                     {
-                        await tradingPhase.ConsiderTrades(gameState.Name, playerId.ToString(), playerName, gameState.AvailableTrades, gameState, gameClient);
+                        await tradingPhase.ConsiderTrades(gameState.Name, playerId.ToString(), playerName, gameState, playingClient);
                     }
                 }
             } else if (gameState.CurrentState.ToGameState() == GameStateEnum.GameDone)
