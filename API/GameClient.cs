@@ -1,5 +1,4 @@
 using BoardGameClientBBR2025.GameBoard;
-using System.Net;
 using System.Text.Json;
 namespace BoardGameClientBBR2025.API
 {
@@ -13,12 +12,12 @@ namespace BoardGameClientBBR2025.API
             this.httpClient = httpClient;
         }
 
-        public async Task<GameState?> GetGame(string gameName)
+        public async Task<GameState?> GetGame(string gameName, Guid playerId)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{Constants.GameUrl}?gameName={gameName}"),
+                RequestUri = new Uri($"{Constants.GameUrl}?gameName={gameName}&playerId={playerId}"),
             };
 
             using (var response = await httpClient.SendAsync(request))
