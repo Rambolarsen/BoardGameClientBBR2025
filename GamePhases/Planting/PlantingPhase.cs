@@ -7,7 +7,7 @@ namespace BoardGameClientBBR2025.GamePhases.Planting
     {
         public override GamePhaseEnum GamePhase => GamePhaseEnum.Planting;
 
-        protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
+        protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, DateTime phaseEnds, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
         {
 	        if (!ourHand.Any())
 	        {

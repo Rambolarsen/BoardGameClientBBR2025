@@ -9,10 +9,16 @@ public class TradingPhase : GamePhaseBase, IGamePhase
     private List<Card> _wantCards = [];
     private List<Card> _getRidOfCards = [];
 
-	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
-    {
-		CalculatePossibleTrades(ourPlayerId, ourPlayerName, ourHand, us);
+	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, DateTime phaseEnds, List<Card> ourHand, Player activePlayer, Player us, PlayingClient playingClient)
+	{
+		var timeToQuit = phaseEnds - TimeSpan.FromMilliseconds(20);
+	    CalculatePossibleTrades(ourPlayerId, ourPlayerName, ourHand, us);
 		await OfferTrades(gameName, ourPlayerId, ourPlayerName, playingClient);
+
+		while (DateTime.Now < timeToQuit)
+		{
+			await Task.Delay(10);
+		}
 	    
 	    await playingClient.EndTrading(gameName, ourPlayerId);
 	}
@@ -53,7 +59,7 @@ public class TradingPhase : GamePhaseBase, IGamePhase
 
 	private async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName, PlayingClient playingClient)
 	{
-		await playingClient.RequestTrade(gameName, ourPlayerId);
+		
 	}
 
 	private List<Card> GetAvailableCards(List<Card> ourHand, List<Card> drawnCards)
