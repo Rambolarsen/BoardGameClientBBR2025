@@ -3,39 +3,20 @@ using BoardGameClientBBR2025.GameBoard;
 
 namespace BoardGameClientBBR2025.GamePhases.TradePlanting;
 
-public class TradePlantingPhase : GamePhaseBase, IGamePhase
+public class TradePlantingPhase : PlantingPhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.TradePlanting;
 
-    public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
+    protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string ourPlayerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
     {
-        var player = gameState.Players.GetActivePlayer();
+		var cardsToPlant = new List<Card>();
+		cardsToPlant.AddRange(activePlayer.DrawnCards);
+		cardsToPlant.AddRange(activePlayer.TradedCards);
 
-        var cardsToPlant = new List<Card>();
-        cardsToPlant.AddRange(player.DrawnCards);
-        cardsToPlant.AddRange(player.TradedCards);
-
-        foreach (var card in cardsToPlant)
-        {
-            var validField = GetValidField(card, gameState);
-
-            await validField.PlantBean(card, gameState.Name, playerId, playingClient);
-        }
-    }
-
-    private static Field GetValidField(Card card, GameState gameState)
-    {
-        var fields = gameState.Players.First(p => p.Name == gameState.CurrentPlayer).Fields;
-
-        var fieldContainingSameCardType = fields.FirstOrDefault(x => x.ContainsSameTypeOfBean(card));
-
-        if (fieldContainingSameCardType != null)
-        {
-            return fieldContainingSameCardType;
-        }
-
-        var largestField = fields.MaxBy(f => f.Card.Count);
-
-        return largestField;
-    }
+		foreach (var card in cardsToPlant)
+		{
+			var field = FindBestFieldToPlantOn(card, activePlayer.Fields);
+			await field.PlantBean(card, gameName, ourPlayerId, playingClient);
+		}
+	}
 }

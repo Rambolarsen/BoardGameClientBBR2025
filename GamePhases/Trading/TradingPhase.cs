@@ -6,9 +6,26 @@ namespace BoardGameClientBBR2025.GamePhases.Trading;
 public class TradingPhase : GamePhaseBase, IGamePhase
 {
     public override GamePhaseEnum GamePhase => GamePhaseEnum.Trading;
+    private List<Card> _wantCards = [];
+    private List<Card> _getRidOfCards = [];
 
-    public override async Task DoPhase(Guid playerId, GameState gameState, PlayingClient playingClient)
+	protected override async Task PhaseImplementation(string gameName, string ourPlayerId, string playerName, List<Card> ourHand, Player activePlayer, PlayingClient playingClient)
     {
-        await playingClient.EndTrading(gameState.Name, gameState.CurrentPlayer);
-    }
+		await playingClient.EndTrading(gameName, ourPlayerId);
+	}
+
+	public async Task ConsiderTrades(string gameName, string ourPlayerId, string ourPlayerName,
+		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
+	{
+	}
+
+	public async Task OfferTrades(string gameName, string ourPlayerId, string ourPlayerName,
+		List<Trade> availableTrades, GameState gameState, GameClient gameClient)
+	{
+	}
+
+	private List<Card> FindWantCards(List<Card> ourHand, List<Card> drawnCards, List<Field> ourFields)
+	{
+		return new List<Card>();
+	}
 }

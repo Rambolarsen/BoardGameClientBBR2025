@@ -4,7 +4,7 @@
 	{
 		public static ExchangeMap? CurrentExchangeMap(this List<ExchangeMap> exchangeMap, int cropSize)
 		{
-			foreach (var oneExchangeMap in exchangeMap.OrderBy(x => x.CropSize))
+			foreach (var oneExchangeMap in exchangeMap.OrderByDescending(x => x.CropSize))
 			{
 				if (cropSize >= oneExchangeMap.CropSize)
 				{
