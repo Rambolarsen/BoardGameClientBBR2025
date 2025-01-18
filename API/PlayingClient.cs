@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace BoardGameClientBBR2025.API
@@ -91,14 +92,14 @@ namespace BoardGameClientBBR2025.API
             }
         }
 
-         public async Task RequestTrade(string gameName, string playerId, RequestTrade requestTrade)
+        public async Task RequestTrade(string gameName, string playerId, RequestTrade requestTrade)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
                 RequestUri = new Uri($"{Constants.GameUrl}/request-trade?gameName={gameName}&playerId={playerId}"),
 
-                Content = new StringContent("{\n  \"offeredCards\": requestTrade.OfferedCards,\n  \"cardTypesWanted\": requestTrade.CardTypesWanted\n}")
+                Content = new StringContent(JsonSerializer.Serialize(requestTrade))
                 {
                     Headers =
                     {
