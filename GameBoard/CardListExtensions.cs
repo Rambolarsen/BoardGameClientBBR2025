@@ -26,17 +26,9 @@
 				return 0;
 			}
 
-			var firstCard = cards.First();
+			var currentExchangeMap = cards.CurrentExchangeMap();
 
-			foreach (var oneExchangeValue in firstCard.ExchangeMap.OrderBy(x => x.CropSize))
-			{
-				if (cards.Count >= oneExchangeValue.CropSize)
-				{
-					return oneExchangeValue.Value;
-				}
-			}
-
-			return 0;
+			return currentExchangeMap?.Value ?? 0;
 		}
 
 		public static bool IsMaxCropSize(this List<Card> cards)
@@ -51,16 +43,17 @@
 				return false;
 			}
 
-			var firstCard = cards.First();
+			var aCard = cards.First();
+			var maxExchangeMap = aCard.ExchangeMap.MaxExchangeMap();
 
-			return cards.Count >= firstCard.ExchangeMap.Max(x => x.CropSize);
+			return cards.Count >= maxExchangeMap.CropSize;
 		}
 
 		public static decimal Potential(this List<Card> cards)
 		{
 			if (!cards.Any())
 			{
-				return 100;
+				return 10;
 			}
 
 			if (cards.IsMaxCropSize())
@@ -76,30 +69,29 @@
 
 		public static int NumberOfCardsToNextExchangeMap(this List<Card> cards)
 		{
+			const int infiniteNumberOfCards = 10;
+			
 			if (!cards.Any())
 			{
-				//Infinite
-				return 100;
+				return infiniteNumberOfCards;
 			}
 
 			if (!cards.AllCardsAreOfSameType())
 			{
-				//infinite
-				return 100;
+				return infiniteNumberOfCards;
 			}
 
 			var currentExchangeMap = cards.CurrentExchangeMap();
 			if (currentExchangeMap == null)
 			{
-				return cards.MinExchangeMap()?.CropSize ?? 0;
+				return cards.MinExchangeMap()?.CropSize ?? infiniteNumberOfCards;
 			}
 
 			var nextExchangeMap = cards.NextExchangeMap();
 
 			if (nextExchangeMap == null)
 			{
-				//infinite
-				return 100;
+				return infiniteNumberOfCards;
 			}
 
 			return nextExchangeMap.CropSize - currentExchangeMap.CropSize;
@@ -107,10 +99,11 @@
 
 		public static int ValueIncreaseOnNextExchangeMap(this List<Card> cards)
 		{
+			const int aNiceAverageValue = 1;
+			
 			if (!cards.Any())
 			{
-				//A nice value?
-				return 1;
+				return aNiceAverageValue;
 			}
 
 			if (!cards.AllCardsAreOfSameType())
@@ -121,7 +114,7 @@
 			var currentExchangeMap = cards.CurrentExchangeMap();
 			if (currentExchangeMap == null)
 			{
-				return cards.MinExchangeMap()?.Value ?? 0;
+				return cards.MinExchangeMap()?.Value ?? aNiceAverageValue;
 			}
 			
 			var nextExchangeMap = cards.NextExchangeMap();
@@ -151,9 +144,9 @@
 				return null;
 			}
 
-			var firstCard = cards.First();
+			var aCard = cards.First();
 
-			return firstCard.ExchangeMap.CurrentExchangeMap(cards.Count);
+			return aCard.ExchangeMap.CurrentExchangeMap(cards.Count);
 		}
 
 		public static ExchangeMap? NextExchangeMap(this List<Card> cards)
@@ -168,9 +161,9 @@
 				return cards.MaxExchangeMap();
 			}
 
-			var firstCard = cards.First();
+			var aCard = cards.First();
 
-			return firstCard.ExchangeMap.NextExchangeMap(cards.Count);
+			return aCard.ExchangeMap.NextExchangeMap(cards.Count);
 		}
 
 		public static ExchangeMap? MaxExchangeMap(this List<Card> cards)
